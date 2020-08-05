@@ -1,0 +1,14 @@
+For Ubuntu 18.04 install Ros Melodic
+For Ubuntu 20 install Ros Noetic
+
+Installation Guide for Ros Melodic:
+http://wiki.ros.org/melodic/Installation/Ubuntu
+
+Installation Guide for Ros Noetic:
+http://wiki.ros.org/noetic/Installation/Ubuntu
+
+Check Your installation:
+By Typing Roscore in terminal
+
+Install Catkin Tools:
+https://catkin-tools.readthedocs.io/en/latest/installing.html
