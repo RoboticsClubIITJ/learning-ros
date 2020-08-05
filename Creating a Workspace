@@ -1,0 +1,18 @@
+Creating a Catkin Workspace:
+This is necessary as this is the folder where all the packages in Ros will reside. 
+All the work done by you in Ros will reside in this catkin workspace.
+
+Steps to create:
+source /opt/ros/noetic/setup.bash
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/
+catkin_make
+source devel/setup.bash
+
+Things to Remember:
+1) After any change in the catkin workspace(e.g. after cloning a ROS package remember to catkin_make)
+2) Remember to  source devel/setup.bash after every catkin_make
+
+After opening a new terminal remember to enter: source ~/catkin_ws/devel/setup.bash
+You can also add this line to your .bashrc this will save you from entering this line in a new terminal
+But I highly recommend to add this line in every new termnal you open.
