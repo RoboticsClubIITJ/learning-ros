@@ -1,0 +1,4 @@
+<launch>
+   <node pkg="move_p3dx" type="move_p3dx.py" name="topic_publisher" output="screen">
+   </node>
+</launch>
