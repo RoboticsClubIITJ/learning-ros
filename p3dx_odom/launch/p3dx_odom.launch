@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="p3dx_odom" type="odom.py" name="topic_subscriber" output="screen">
+    </node>
+</launch>
