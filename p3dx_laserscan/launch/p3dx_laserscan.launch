@@ -1,0 +1,4 @@
+<launch>
+   <node pkg="p3dx_laserscan" type="laser.py" name="topic_publisher" output="screen">
+   </node>
+</launch>
