@@ -1,0 +1,6 @@
+<launch>
+   <node pkg="control_p3dx" type="overall_control.py" name="topic_publisher" output="screen">
+   </node>
+   <node pkg="control_p3dx" type="overall_control.py" name="topic_subscriber" output="screen">
+   </node>
+</launch>
