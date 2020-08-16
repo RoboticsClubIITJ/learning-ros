@@ -1,0 +1,4 @@
+<launch>
+   <node pkg="p3dx_obstacle_stop" type="obstacle_stop.py" name="obstacle" output="screen">
+   </node>
+</launch>
