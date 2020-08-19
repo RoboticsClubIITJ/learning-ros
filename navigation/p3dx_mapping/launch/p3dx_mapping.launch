@@ -1,0 +1,9 @@
+<launch>
+    <arg name="scan_topic" default="base_scan"/>
+    
+    <param name="use_sim_time" value="true"/>
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+      <remap from="scan" to="base_scan"/>
+      <rosparam file="$(find p3dx_mapping)/params/p3dx_params.yaml" command="load" />
+    </node>
+</launch>
