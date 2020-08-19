@@ -6,12 +6,12 @@ from sensor_msgs.msg import LaserScan
 
 
 def callback(msg):
-   pub.publish(twist)
    a=msg.ranges[360]
    if a>1:
      twist.linear.x=0.3
    else:
      twist.linear.x=0.0
+   pub.publish(twist)
 
 
 rospy.init_node('obstacle')
