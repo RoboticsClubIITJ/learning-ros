@@ -1,0 +1,12 @@
+To successfully install mapping:
+1)clone gmapping pkg
+2)clone openslam_gmapping pkg
+
+for navigation:
+1)clone navigation pkg
+2)clone navigation_msgs pkg
+3)clone tf2_sensror_msgs pkg
+
+for octomap:
+1)clone octomap_mapping pkg
+2)clone octomap_ros pkg
