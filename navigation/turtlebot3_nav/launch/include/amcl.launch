@@ -1,0 +1,10 @@
+<launch>
+  <arg name="use_map_topic" default="true"/>
+  <arg name="scan_topic" default="scan"/>
+
+<node pkg="amcl" type="amcl" name="amcl" output="screen">
+  <!-- Publish scans from best pose at a max of 10 Hz -->
+  <remap from="scan" to="scan"/>
+  <rosparam file="$(find turtlebot3_amcl)/params/amcl_params.yaml" command="load" />
+</node>
+</launch>
