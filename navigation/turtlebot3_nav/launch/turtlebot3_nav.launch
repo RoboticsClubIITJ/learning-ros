@@ -10,4 +10,9 @@
   <!--- Run Move Base -->
  <include file="$(find turtlebot3_nav)/launch/include/move_base.launch" />
 
+  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch">
+    <arg name="model" value="burger"/>
+  </include>
+
+ <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtlebot3_nav)/rviz/nav.rviz"/>
 </launch>
