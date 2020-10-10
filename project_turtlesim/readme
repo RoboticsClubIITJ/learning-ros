@@ -1,0 +1,3 @@
+ROS2 Project on Turtlesim to automate the control of Turtle1 (main Turtle) to capture all other turtles spawned on screen.
+
+ROS2 Foxy has been used with colcon builder to design this project.
