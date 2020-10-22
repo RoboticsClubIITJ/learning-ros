@@ -1,0 +1,34 @@
+<launch>
+  <arg name="model" default="$(find First_Robo)/urdf/probot.urdf"/>
+  <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />
+
+  <include file="$(find First_Robo)/launch/gazebo.launch">
+    <arg name="model" value="$(arg model)" />
+  </include>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
+
+  <rosparam command="load"
+            file="$(find First_Robo)/config/joints.yaml"
+            ns="pro_joint_state_controller" />
+  <rosparam command="load"
+            file="$(find First_Robo)/config/head.yaml"
+            ns="pro_head_controller" />
+  <rosparam command="load"
+            file="$(find First_Robo)/config/hands.yaml"
+            ns="pro_hands_controller" />
+  <rosparam command="load"
+            file="$(find First_Robo)/config/diffdrive.yaml"
+            ns="pro_diff_drive_controller" />
+
+  <node name="pro_controller_spawner" pkg="controller_manager" type="spawner"
+    args="pro_joint_state_controller
+          pro_head_controller
+          pro_hands_controller
+          pro_diff_drive_controller
+          --shutdown-timeout 3"/>
+
+  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+    <param name="default_topic" value="/pro_diff_drive_controller/cmd_vel"/>
+  </node>
+</launch>
