@@ -1,0 +1,4 @@
+type: "position_controllers/JointGroupPositionController"
+joints:
+ - base_to_left_hand
+ - base_to_right_hand

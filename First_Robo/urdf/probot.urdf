@@ -1,0 +1,358 @@
+<?xml version="1.0"?>
+<robot name = "pro" xmlns:xacro="http://ros.org/wiki/xacro">
+  
+  <xacro:property name="base_width" value="0.5" />
+  <xacro:property name="base_len" value="${(base_width/1.5)*1.25}" />
+  <xacro:property name="base_height" value="${(base_width/1.5)*3.0}" />
+  <xacro:property name="hand_len" value="${(base_width/1.5)*0.4}" />
+  <xacro:property name="hand_width" value="${(base_width/1.5)*0.4}" />
+  <xacro:property name="hand_height" value="${(base_width/1.5)*2.0}" />
+  <xacro:property name="neck_radius" value="${(base_width/1.5)*0.4}" />
+  <xacro:property name="wheel_radius" value="${(base_width/1.5)*0.25}" />
+  <xacro:property name="wheel_length" value="${(base_width/1.5)*0.5}" />
+   
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <xacro:macro name="default_inertial" params="mass">
+    <inertial>
+      <mass value="${mass}" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+    </inertial>
+  </xacro:macro>
+  
+  <link name="base_link">
+    <visual>
+      <geometry>
+ 	<box size = "${base_width} ${base_len} ${base_height}"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy= "0.0 0.0 0.0"/>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+ 	<box size = "${base_width} ${base_len} ${base_height}"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy= "0.0 0.0 0.0"/>
+    </collision>
+    <xacro:default_inertial mass="10.0"/>
+  </link>
+  <gazebo reference="base_link">
+     <material>Gazebo/Blue</material>
+  </gazebo>
+  <xacro:macro name="hand" params="prefix reflect">
+    <link name="${prefix}_hand">
+      <visual>
+        <geometry>
+          <box size = "${hand_width} ${hand_len} ${hand_height}"/>
+        </geometry>
+        <origin xyz="${reflect*(hand_width/2)} 0.0 -${hand_height/2 - (base_width/1.5)*0.2}"/>
+      </visual>
+      <collision>
+        <geometry>
+          <box size = "${hand_width} ${hand_len} ${hand_height}"/>
+        </geometry>
+        <origin xyz="${reflect*(hand_width/2)} 0.0 -${hand_height/2 - (base_width/1.5)*0.2}"/>
+      </collision>
+      <xacro:default_inertial mass="3.0"/>
+      <gazebo>
+        <material>Gazebo/Red</material>
+      </gazebo>
+    </link>
+    
+    <gazebo reference="${prefix}_hand">
+      <material>Gazebo/Red</material>
+   </gazebo>
+    
+    <joint name="base_to_${prefix}_hand" type="revolute">
+      <parent link="base_link"/>
+      <child link="${prefix}_hand"/>
+      <origin xyz="${reflect*(base_width/2)} 0.0 ${base_height/2 - (base_width/1.5)*0.3}" rpy = "0.0 0.0 0.0"/>
+      <axis xyz="1 0 0"/>
+      <limit effort="1000.0" lower="0.0" upper="1.57" velocity="0.5"/>
+    </joint>
+    
+    <transmission name="${prefix}_hand_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="{prefix}_hand_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="base_to_${prefix}_hand">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  
+  </xacro:macro>
+  <xacro:hand prefix="right" reflect="-1" /> 
+  <xacro:hand prefix="left" reflect="1" /> 
+  
+  <link name="Neck">
+    <visual>
+      <geometry>
+        <cylinder radius="${(base_width/1.5)*0.17}" length="${(base_width/1.5)*0.5}"/>
+      </geometry>
+      <origin xyz="0.0 0.0 ${(base_width/1.5)*0.25}"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="${(base_width/1.5)*0.17}" length="${(base_width/1.5)*0.5}"/>
+      </geometry>
+      <origin xyz="0.0 0.0 ${(base_width/1.5)*0.25}"/>
+    </collision>
+    <xacro:default_inertial mass="0.2"/>
+  </link>
+  
+  <gazebo reference="Neck">
+      <material>Gazebo/Red</material>
+   </gazebo>
+  
+  <joint name="base_to_neck" type="continuous">
+    <parent link="base_link"/>
+    <child link="Neck"/>
+    <origin xyz="0.0 0.0 ${(base_width/1.5)*1.5}"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  
+  <transmission name="neck_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="neck_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="base_to_neck">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  
+  <link name="Head">
+    <visual>
+      <geometry>
+        <box size="${(base_width/1.5)*1.25} ${(base_width/1.5)*0.6} ${(base_width/1.5)*0.6}"/>
+      </geometry>
+      <origin xyz="0.0 0.0 ${(base_width/1.5)*0.1}"/>
+    </visual>
+    <collison>
+      <geometry>
+        <box size="${(base_width/1.5)*1.25} ${(base_width/1.5)*0.6} ${(base_width/1.5)*0.6}"/>
+      </geometry>
+      <origin xyz="0.0 0.0 ${(base_width/1.5)*0.1}"/>
+    </collison>
+    <xacro:default_inertial mass="4.0"/>
+  </link>
+  
+  <gazebo reference="Head">
+      <material>Gazebo/Red</material>
+   </gazebo>
+  
+  <joint name="neck_to_head" type="fixed">
+    <parent link="Neck"/>
+    <child link="Head"/>
+    <origin xyz="0.0 0.0 ${(base_width/1.5)*0.5}"/>
+  </joint>
+  
+  <xacro:macro name="wheel" params="prefix forward left">
+    <link name="${prefix}_wheel">
+      <visual>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
+        </geometry>
+        <origin xyz="0.0 0.0 0.0"/>
+        <material name="black"/>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
+        </geometry>
+        <origin xyz="0.0 0.0 0.0"/>
+        <material name="black"/>
+      </collision>
+     <xacro:default_inertial mass="1.0"/>
+   </link>
+   
+   <joint name="base_to_${prefix}" type="continuous">
+     <parent link="base_link"/>
+     <child link="${prefix}_wheel"/>
+     <origin xyz="${(base_width/1.5)*left*-0.6} ${(base_width/1.5)*forward*0.375} ${(base_width/1.5)*-1.75}" rpy="1.57 0.0 1.57"/>
+     <axis xyz="0 0 1"/>
+   </joint>
+   
+   <gazebo reference="${prefix}_wheel">
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Black</material>
+   </gazebo>
+   
+   <transmission name="${prefix}_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="{prefix}_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="base_to_${prefix}">
+      <hardwareInterface>VelocityJointInterface</hardwareInterface>
+    </joint>
+   </transmission>
+  </xacro:macro>
+  
+  <xacro:wheel prefix="lf" forward="1" left="1"/>
+  <xacro:wheel prefix="lb" forward="-1" left="1"/>
+  <xacro:wheel prefix="rf" forward="1" left="-1"/>
+  <xacro:wheel prefix="rb" forward="-1" left="-1"/>  
+ 
+  <xacro:macro name="beauty" params="prefix left">
+    <link name="${prefix}_eye">
+      <visual>
+        <geometry>
+          <cylinder radius="${(base_width/1.5)*0.15}" length="${(base_width/1.5)*0.1}"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+      <collison>
+        <geometry>
+          <cylinder radius="${(base_width/1.5)*0.15}" length="${(base_width/1.5)*0.1}"/>
+        </geometry>
+        <material name="black"/>
+      </collison>
+      <xacro:default_inertial mass="0.1"/>
+    </link>
+    
+    <gazebo reference="${prefix}_eye">
+      <material>Gazebo/Black</material>
+   </gazebo>
+  
+    <joint name="${prefix}_eye_to_head" type="fixed">
+      <parent link="Head"/>
+      <child link="${prefix}_eye"/>
+      <origin xyz="${(base_width/1.5)*left*0.3} ${(base_width/1.5)*0.3} ${(base_width/1.5)*0.10}" rpy="1.57 0.0 0.0"/>
+    </joint>
+  
+    <link name="${prefix}_palm">
+      <visual>
+        <geometry>
+          <sphere radius="${(base_width/1.5)*0.2}"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+      <collison>
+        <geometry>
+          <sphere radius="${(base_width/1.5)*0.2}"/>
+        </geometry>
+        <material name="black"/>
+      </collison>
+      <xacro:default_inertial mass="1.0"/>
+    </link>
+    
+    <gazebo reference="${prefix}_palm">
+      <material>Gazebo/Black</material>
+   </gazebo>
+ 
+    <joint name="${prefix}_palm_to_hand" type="fixed">
+      <parent link="${prefix}_hand"/>
+      <child link="${prefix}_palm"/>
+      <origin xyz="${left*(hand_width/2)} 0.0 -${(hand_height - (base_width/1.5)*0.2)}"/>
+    </joint>
+    
+    <link name="${prefix}_shoulder">
+      <visual>
+        <geometry>
+          <cylinder radius="${(base_width/1.5)*0.2}" length="${(base_width/1.5)*0.4}"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder radius="${(base_width/1.5)*0.2}" length="${(base_width/1.5)*0.4}"/>
+        </geometry>
+      </collision>
+      <xacro:default_inertial mass="2.0"/>
+    </link>
+    
+    <gazebo reference="${prefix}_shoulder">
+      <material>Gazebo/Red</material>
+   </gazebo>
+  
+    <joint name="${prefix}_shoulder_to_hand" type="fixed">
+      <parent link="${prefix}_hand"/>
+      <child link="${prefix}_shoulder"/>
+      <origin xyz="${left*(hand_width/2)} 0.0 ${(base_width/1.5)*0.2}" rpy="0.0 1.57 0.0"/>
+    </joint>
+    
+  </xacro:macro>
+  <xacro:beauty prefix="left" left="1"/>
+  <xacro:beauty prefix="right" left="-1"/>    
+  
+  <link name="head_top">
+    <visual>
+      <geometry>
+        <cylinder radius="${(base_width/1.5)*0.35}" length="${(base_width/1.5)*1.25}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="${(base_width/1.5)*0.35}" length="${(base_width/1.5)*1.25}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="2.0"/>
+  </link>
+  
+  <gazebo reference="head_top">
+      <material>Gazebo/Red</material>
+  </gazebo>
+   
+  <joint name="head_top_to_Head" type="fixed">
+    <parent link="Head"/>
+    <child link="head_top"/>
+    <origin xyz="0.0 0.0 ${(base_width/1.5)*0.35}" rpy="0.0 1.57 0.0"/>
+  </joint>
+  
+  <xacro:macro name="torso" params="prefix reflect">
+    <link name="${prefix}_torso">
+      <visual>
+        <geometry>
+          <box size = "${base_width-(base_width/1.5)*0.4} ${(base_width/1.5)*0.2} ${base_height-(base_width/1.5)*0.8}"/>
+        </geometry>
+      </visual>
+      <collision>
+      <geometry>
+        <box size = "${base_width-(base_width/1.5)*0.4} ${(base_width/1.5)*0.2} ${base_height-(base_width/1.5)*0.8}"/>
+      </geometry>
+      </collision>    
+      <xacro:default_inertial mass="4.0"/>
+    </link>
+    
+    <gazebo reference="${prefix}_torso">
+      <material>Gazebo/Red</material>
+   </gazebo>
+  
+    <joint name="${prefix}_torso_to_base" type="fixed">
+      <parent link="base_link"/>
+      <child link="${prefix}_torso"/>
+      <origin xyz="0.0 ${reflect*(base_len/2)} 0.0"/>
+    </joint>
+  </xacro:macro>
+  <xacro:torso prefix="front" reflect="1"/>
+  <xacro:torso prefix="back" reflect="-1"/>
+  
+  
+  
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+  
+  
+</robot>
+
+
+
+
+  
