@@ -1,52 +1,46 @@
-Getting Started with ROS and Gazebo
+# Getting Started with ROS and Gazebo
 
-Q. What is ROS?
-A. ROS is an open-source software. ROS in complete terms is Robots Operating System. Though in full terms it is not a complete Operating System but it acts similar to an operating system. There are several nodes which control several commands and process and fially outputs a result which is directly sent to the Robot. ROS acts a CPU for several applications related to robots like MOVEit, Gazebo to work.
+## What is ROS?
+ROS, short for Robot Operating System, is open-source software that serves as a vital framework for robotic applications. While not a conventional operating system, it functions similarly, managing multiple nodes, processing commands, and delivering results to the robot. ROS plays a central role in enabling various robot-related applications like MOVEit and Gazebo to function effectively.
 
-Q. What is Gazebo?
-A. Many times we cannot use a real robot for testing purposes as there may be some damage to the robot while testing and also loss of time and hardwork. Therefore we use a simulated world where we use a simulated Robot and try our code on such a robot. Such a simulated environment is called Gazebo.
+## What is Gazebo?
+Gazebo is a simulated environment for testing and developing robot applications. It provides a virtual world where engineers and developers can use simulated robots to test their code. This approach avoids the risk of damaging physical robots during testing and saves both time and effort in the development process.
 
-Installation of ROS:
+## Installation of ROS
 
-At the time of writing there qare two versions of ROS available
- 
-1) ROS Melodic
-2) ROS Noetic
+At the time of writing, there are two primary versions of ROS available:
 
-Installation of ROS Melodic:
+1. ROS Melodic
+2. ROS Noetic
 
-ROS Melodic needs to installed on Ubuntu 18.04
-The instructions for it are: http://wiki.ros.org/melodic/Installation/Ubuntu
+### Installation of ROS Melodic
+To install ROS Melodic, you will need Ubuntu 18.04. Follow the installation instructions provided here: [ROS Melodic Installation Instructions for Ubuntu 18.04](http://wiki.ros.org/melodic/Installation/Ubuntu)
 
-similarly
+### Installation of ROS Noetic
+For ROS Noetic, you'll need Ubuntu 20.04. The installation instructions are available here: [ROS Noetic Installation Instructions for Ubuntu 20.04](http://wiki.ros.org/noetic/Installation/Ubuntu)
 
-ROS Noetic needs to be installed on Ubunuu 20
-The instructions for it are: http://wiki.ros.org/noetic/Installation/Ubuntu
+## Installation of Ubuntu Software
 
-Installation of Ubuntu Software:
+There are two methods for installing Ubuntu:
 
-There are two ways to do so:
+1. Using a Virtual Machine (VM): Follow this video tutorial for Ubuntu 18.04: [VM Installation Guide](https://www.youtube.com/watch?v=QbmRXJJKsvs)
+2. Dual Booting Your PC: Refer to this video guide for Ubuntu 18.04: [Dual Boot Installation Guide](https://www.youtube.com/watch?v=u5QyjHIYwTQ)
 
-1) Using VM: https://www.youtube.com/watch?v=QbmRXJJKsvs
-2) Dual booting your Pc: https://www.youtube.com/watch?v=u5QyjHIYwTQ
+These methods are tailored for Ubuntu 18.04. You can adapt them for Ubuntu 20.04 by obtaining the corresponding installation files.
 
-These methods are for Ubuntu 18.04 similarly you can do for 20.04 by downloading corresponding zip file for 20.04
+## Sources for Studying ROS
+While the official ROS website provides comprehensive resources, beginners might find it challenging to grasp initially. For a more approachable introduction, I recommend exploring the YouTube channel called [The Construct](https://www.youtube.com/channel/UCt6Lag-vv25fTX3e11mVY1Q). They offer excellent video tutorials and playlists to help you get started.
 
-I would prefer to follow the second method as we can use our own GPU in it but since many laptops don't have enough RAM for dual booting you can go for the first method.
+Additional instructions and resources can be found in the theory folder of this repository.
 
-Q. What are the sources from studying ROS
-A. The official ROS site is where you get everything but the problem is that as a beginner you are not able to understand it clearly therefore I prefer you to visit (The Construct)[https://www.youtube.com/channel/UCt6Lag-vv25fTX3e11mVY1Q] youtube channel. They have amazing videos. See their playlists thouroughly.
+## Why Study ROS?
+The decision to study ROS is a personal one, but it's worth noting that ROS represents a valuable skillset to acquire. In the wake of events like the COVID-19 pandemic, there is a growing reliance on automation and robotics. The demand for skilled ROS developers is expected to increase significantly. Currently, there is a shortage of ROS professionals compared to fields like web development, app development, and machine learning/deep learning.
 
-Other instructions are present in the theory folder of this Repo.
+## Job Opportunities Related to ROS
+Extensive research has shown that many of the world's leading companies have dedicated robotics development divisions. Companies such as Amazon and Google invest heavily in robotics research, and they rely on ROS as a fundamental part of their software infrastructure. While a short course of 2-3 months in ROS may not make you immediately eligible for such positions, specializing in this field and pursuing an MS degree from a foreign university can significantly enhance your prospects.
 
-Q. Why study ROS?
-A. It's completely a personal decision to study ROS but ROS is nothing but a new skill to learn and in situations like that of COVID-19 people, doctors and companies are more relying towards a more human-free environment i.e. we are preferring robots also the amount of ROS developers in the world are very less compared to other fields like that of WebD,AppD, ML/DL. Further it is predicted that there will be a huge demand for Robots in the nearing future.
+## Contact Information
+If you have any questions or need further assistance, please feel free to contact me:
 
-Q. Do I have any jobs related to ROS?
-A. I have researched a lot while learning ROS and found out that most of the world's top companies have their own Robots development sector. For example Amazon and Google spend a lot of their money on research in Robotics and all these companies use ROS as their software. Of course 2-3 months course on ROS won't make you eligible in these companies, you need to have a good specialization in this course also a MS degree from foreign universites is always a preffered option.
-
-Q. Whom should I contact for doubts?  
-A. You can contact me for ROS related doubts or even having some light talks on any topic.
-My email id:- thakur.6@iitj.ac.in
-phone no. 9769252333
-
+- **Email:** thakur.6@iitj.ac.in
+- **Phone:** 9769252333
